@@ -1098,7 +1098,15 @@ module Gruff
                 elsif increment >= 0.001 || (increment * 10000) == (increment * 10000).to_i.to_f
                   sprintf('%0.4f', value)
                 else
-                  value.to_s
+                  if value.abs < 0.0001
+                    sprintf('%0.3g', value)
+                  elsif value.abs < 1
+                    sprintf('%0.2e', value)
+                  elsif value.abs >= 1000
+                    sprintf('%0.2e', value)
+                  else
+                    value.to_s
+                  end
                 end
               elsif (@spread.to_f % (@marker_count.to_f==0 ? 1 : @marker_count.to_f) == 0) || !@y_axis_increment.nil?
                 value.to_i.to_s
