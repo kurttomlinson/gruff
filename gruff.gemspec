@@ -11,7 +11,9 @@ Gem::Specification.new do |s|
   s.date = Date.today.to_s
   s.description = %q{Beautiful graphs for one or multiple datasets. Can be used on websites or in documents.}
   s.email = %q{boss@topfunky.com}
-  s.files = `git ls-files`.split($/).reject{|f| f =~ /^test#{File::ALT_SEPARATOR || File::SEPARATOR}output/}
+  # The .sub() call below makes this work on Windows.
+  # Source: https://github.com/ruhoh/silly/issues/4
+  s.files = `git ls-files`.split($/).reject{|f| f =~ /^test#{File::ALT_SEPARATOR.sub('\\', '\\\\\\\\') || File::SEPARATOR}output/}
   s.homepage = %q{https://github.com/topfunky/gruff}
   s.require_paths = %w(lib)
   s.summary = %q{Beautiful graphs for one or multiple datasets.}
